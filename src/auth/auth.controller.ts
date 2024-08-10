@@ -54,8 +54,8 @@ export class AuthController {
   }
 
   // auth/adminregister
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt-superadmin'))
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt-superadmin'))
   @Post('adminregister')
   @ApiOperation({ description: 'Register a new admin' , summary: 'Input - all details of admin + SuperAdmin token and output - Admin Id'})
   async registerAdmin(@Body() createAdminDto: CreateAdminDto) {
