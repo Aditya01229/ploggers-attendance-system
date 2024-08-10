@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum Occupation {
+  Student
+  WorkingProfessional
+  Other
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum Role {
+  SuperAdmin
+  Admin
+}
+
+model User {
+  id                   Int        @id @default(autoincrement())
+  name                 String
+  email                String     @unique
+  password             String
+  phone                String
+  bloodGroup           BloodGroup
+  birthDate            DateTime
+  gender               Gender
+  highestQualification String
+  occupation           Occupation
+  address              String
+  city                 String?
+  state                String?
+  parentNumber         String
+  collegeOrCompany     String?
+  drivescount          Int        @default(0)
+  ploggersid           String     @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  drives Drive[] @relation("DriveUser")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(Admin)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Drive {
+  id             Int           @id @default(autoincrement())
+  date           DateTime
+  totalHours     Int
+  volunteerCount Int           @default(0)
+  temporaryToken String
+  expiryDate     DateTime
+  locationId     Int
+  users          User[]        @relation("DriveUser")
+  driveLocation  DriveLocation @relation(fields: [locationId], references: [id])
+}
+
+model DriveLocation {
+  id       Int     @id @default(autoincrement())
+  location String  @unique
+  drives   Drive[]
+}
