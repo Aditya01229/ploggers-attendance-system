@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserId } from 'src/common/decorator/user-id.decorator';
+import { UserId } from '../common/decorator/user-id.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { MarkAttendanceDto } from './dto/mark-attendance.dto';

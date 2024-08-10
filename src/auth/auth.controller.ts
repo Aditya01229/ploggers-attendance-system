@@ -5,7 +5,7 @@ import { LoginUserDto } from './dto/login-user-dto';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { UserId } from 'src/common/decorator/user-id.decorator';
+import { UserId } from '../common/decorator/user-id.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
